@@ -309,6 +309,7 @@ class Model(object):
         saver.restore(self.sess, checkpoint_path)
 
         samples = glob(self.opts.test_data)
+        print(samples)
         point = pc_util.load(samples[0])
         self.opts.num_point = point.shape[0]
         out_point_num = int(self.opts.num_point * self.opts.up_ratio)
@@ -326,14 +327,19 @@ class Model(object):
                 pc = pc[0, ...]
 
             input_list, pred_list, avg_patch_time = self.pc_prediction(pc)
+            print(len(input_list), len(pred_list), avg_patch_time)
 
             total_time += avg_patch_time
 
+            print("Doing np.concatenate")
             pred_pc = np.concatenate(pred_list, axis=0)
+            print("Doing (pred_pc * furthest_distance) + centroid")
             pred_pc = (pred_pc * furthest_distance) + centroid
 
+            print("Doing np.reshape(pred_pc, [-1, 3])")
             pred_pc = np.reshape(pred_pc, [-1, 3])
             path = os.path.join(self.opts.out_folder, point_path.split('/')[-1][:-4] + '.ply')
+            print("Doing farthest_point_sample")
             idx = farthest_point_sample(out_point_num, pred_pc[np.newaxis, ...]).eval()[0]
             pred_pc = pred_pc[idx, 0:3]
 
@@ -347,6 +353,7 @@ class Model(object):
             # idx = farthest_point_sample(out_point_num*self.opts.up_ratio, pred_pc[np.newaxis, ...]).eval()[0]
             # pred_pc = pred_pc[idx, 0:3]
 
+            print("Doing np.savetxt")
             np.savetxt(path[:-4] + '.xyz', pred_pc, fmt='%.6f')
 
         logging.info('Average Inference Time: {} ms'.format(total_time / len(samples) * 1000.))

@@ -7,8 +7,8 @@ pretrain_folder=$1   # the pretrain
 is_folder=$2 # set to 1, if you wish to test all the experiment files inside a folder; else set to 0, test only one experiment file
 GPU=$3
 PY_ARGS=${@:4}
-in_data_dir=data/PU1K/test/input_2048/input_2048
-gt_data_dir=data/PU1K/test/input_2048/gt_8192
+in_data_dir=data/pcd0/input
+gt_data_dir=data/pcd0/gt
 
 
 if [ $is_folder == 1 ]

@@ -389,6 +389,7 @@ def load(filename, count=None):
     elif filename[-4:] == ".pcd":
         points = read_pcd(filename, count)[:, :3]
     else:
+        print(np.loadtxt(filename))
         points = np.loadtxt(filename).astype(np.float32)
         if count is not None:
             if count > points.shape[0]:

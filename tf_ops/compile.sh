@@ -17,7 +17,7 @@ system=$1 # linux or centos.
 
 tf_lib=$(python -c 'import tensorflow as tf; print(tf.sysconfig.get_lib())')
 tf_inc=$(python -c 'import tensorflow as tf; print(tf.sysconfig.get_include())')
-cuda_dir="/usr/local/cuda-10.0"
+cuda_dir="/usr/local/cuda"
 cuda_lib="${cuda_dir}/lib64"
 cuda_inc="${cuda_dir}/include"
 

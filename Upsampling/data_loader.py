@@ -46,13 +46,13 @@ def load_h5_data(h5_filename='', opts=None, skip_rate=1, use_randominput=True):
     if use_randominput:
         logging.info("use random input")
         with h5py.File(h5_filename, 'r') as f:
-            input = f['poisson_%d' % num_4X_point][:]
-            gt = f['poisson_%d' % num_out_point][:]
+            input = f['test_%d' % num_4X_point][:]
+            gt = f['test_%d' % num_out_point][:]
     else:
         logging.info("Do not use random input")
         with h5py.File(h5_filename, 'r') as f:
-            input = f['poisson_%d' % num_point][:]
-            gt = f['poisson_%d' % num_out_point][:]
+            input = f['test_%d' % num_point][:]
+            gt = f['test_%d' % num_out_point][:]
 
     # name = f['name'][:]
     assert len(input) == len(gt)

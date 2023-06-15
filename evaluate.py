@@ -115,6 +115,7 @@ with tf.Session() as sess:
         avg_emd_value = 0
         counter = 0
         pred_paths = glob(os.path.join(D, "*.xyz"))
+        print(D, pred_paths)
 
         gt_pred_pairs = []
         for p in pred_paths:
